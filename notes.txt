@@ -1,0 +1,10 @@
+What routes are needed?
+
+GET
+  - {spotify}/playlists
+  - {spotify}/me (probably user data)
+  - {spotify}/playlists/{playlist.id}/tracks
+
+POST
+  - visitation logs
+  - activity logs
