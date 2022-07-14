@@ -2,6 +2,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const loginRouter = require('./src/routes/login.route');
 const musicRouter = require('./src/routes/music.route');
 const testRouter = require('./src/routes/test.route');
 
@@ -31,6 +32,7 @@ app.get('/', (req, res) => {
   res.json({'message': 'ok'});
 });
 
+app.use('/auth', loginRouter);
 app.use('/music', musicRouter);
 app.use('/test', testRouter);
 
