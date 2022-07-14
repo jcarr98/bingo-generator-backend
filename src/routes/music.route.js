@@ -2,9 +2,9 @@ const express = require('express');
 const router = express.Router();
 const musicController = require('../controllers/music.controller');
 
-/* GET user info */
-router.get('/playlist', musicController.getPlaylist);
+// Get user info
 router.get('/me', musicController.getMe);
-router.get('/tracks', music.musicController.getTracks);
+router.get('/playlists', musicController.getPlaylists);
+router.get('/tracks', musicController.getTracks);
 
 module.exports = router;

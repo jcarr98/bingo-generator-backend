@@ -2,13 +2,12 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-// const getRouter = require('./src/routes/get.route');
+const musicRouter = require('./src/routes/music.route');
+const testRouter = require('./src/routes/test.route');
 
 // Set up development environment
 if(process.env.NODE_ENV !== 'production') {
   require('dotenv').config();
-} else {
-  
 }
 
 // Set up app
@@ -32,7 +31,8 @@ app.get('/', (req, res) => {
   res.json({'message': 'ok'});
 });
 
-// app.use('/routes', getRouter);
+app.use('/music', musicRouter);
+app.use('/test', testRouter);
 
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
