@@ -41,7 +41,7 @@ async function getTracks(userToken, playlistId) {
     return {Response};
   }
 
-  let allTracks = await helper.getAllItems(userToken, `${process.env.SPOTIFY_URL}/playlists/${playlistId}/tracks`, limit = 100);
+  let allTracks = await helper.getAllItems(userToken, `${process.env.SPOTIFY_URL}/playlists/${playlistId}/tracks`, 100);
 
   return allTracks;
 }
