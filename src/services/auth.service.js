@@ -1,5 +1,3 @@
-const fetch = require('node-fetch');
-const request = require('request');
 const helper = require('../utils/helper.utils');
 
 async function login() {
