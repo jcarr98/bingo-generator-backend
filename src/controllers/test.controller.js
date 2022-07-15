@@ -9,6 +9,16 @@ async function getTest(req, res, next) {
   }
 }
 
+async function resTest(req, res, next) {
+  try {
+    testServices.resTest(res);
+  } catch (err) {
+    console.log(err.message);
+    next(err);
+  }
+}
+
 module.exports = {
-  getTest
+  getTest,
+  resTest
 }

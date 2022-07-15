@@ -1,4 +1,5 @@
 const fetch = require('node-fetch');
+const request = require('request');
 
 async function getAllItems(userToken, url, limit=20) {
   let currentList, fullList = [];
@@ -24,6 +25,31 @@ async function getAllItems(userToken, url, limit=20) {
   return fullList;
 }
 
+function generateRandomString(length) {
+  const CHARACTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  let str = '';
+
+  for(let i = 0; i < length; i++) {
+    str = str + CHARACTERS.charAt(Math.floor(Math.random() * CHARACTERS.length));
+  }
+  
+  return str;
+}
+
+function doRequest(url) {
+  return new Promise(function(resolve, reject) {
+    request.post(url, function(error, res, body) {
+      if(!error && res.statusCode == 200) {
+        resolve(body);
+      } else {
+        reject(error);
+      }
+    })
+  })
+}
+
 module.exports = {
-  getAllItems
+  getAllItems,
+  generateRandomString,
+  doRequest
 }
