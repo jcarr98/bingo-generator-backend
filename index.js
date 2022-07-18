@@ -32,11 +32,6 @@ app.get('/', (req, res) => {
   res.json({'message': 'ok'});
 });
 
-app.get('/auth/error', (req, res) => {
-  console.log('auth error');
-  res.send('Unknown Error');
-});
-
 app.use('/music', musicRouter);
 app.use('/auth', authRouter);
 app.use('/test', testRouter);
