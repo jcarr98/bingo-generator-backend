@@ -13,7 +13,17 @@ async function resTest(res) {
   res.send({'status': 200, 'url': 'http://localhost:8080/dashboard'});
 }
 
+async function savePlaylist(playlist) {
+
+}
+
+async function saveTracks(tracks) {
+  
+}
+
 module.exports = {
   getTest,
-  resTest
+  resTest,
+  savePlaylist,
+  saveTracks
 }

@@ -1,11 +1,23 @@
 const fetch = require('node-fetch');
 const helper = require('../utils/helper.utils');
+// const fs = require('fs');
+const fsPromises = require('fs').promises;
+const path = require('path');
 
 async function getMe(userToken) {
   if(!userToken) {
     console.log('error');
     const err = "Error";
     return {err};
+  }
+
+  // Check for demo user
+  if(userToken === 'demo') {
+    return {
+      "display_name": 'Demo User',
+      "href": '',
+      "id": -1
+    };
   }
 
   let user = await fetch(`${process.env.SPOTIFY_URL}/me`, {
@@ -21,17 +33,31 @@ async function getMe(userToken) {
 }
 
 async function getPlaylists(userToken) {
-  console.log('Running service');
   if(!userToken) {
     console.log('error');
-    console.log(`usertoken: ${userToken}`);
     const Response = 'Error with user token';
     return {Response};
   }
 
-  let allPlaylists = await helper.getAllItems(userToken, `${process.env.SPOTIFY_URL}/me/playlists`);
+  let data;
 
-  return allPlaylists;
+  // Check for demo user
+  if(userToken === 'demo') {
+    // Read playlists from JSON file
+    let item = await readJson('playlists.json');
+    // Parse json
+    let json = JSON.parse(item);
+    data = [];
+
+    // Create array of objects
+    for(const key in json) {
+      data.push(json[key]);
+    }
+  } else {
+    data = await helper.getAllItems(userToken, `${process.env.SPOTIFY_URL}/me/playlists`);
+  }
+
+  return data;
 }
 
 async function getTracks(userToken, playlistId) {
@@ -41,9 +67,34 @@ async function getTracks(userToken, playlistId) {
     return {Response};
   }
 
-  let allTracks = await helper.getAllItems(userToken, `${process.env.SPOTIFY_URL}/playlists/${playlistId}/tracks`, 100);
+  let data;
 
-  return allTracks;
+  if(userToken === 'demo') {
+    // Read tracks file
+    let jsonPromise = await readJson('tracks.json');
+    // Tracks file has every track for every playlist
+    let fullJson = JSON.parse(jsonPromise);
+    // Find playlist-specific tracks
+    let json = fullJson[playlistId].tracks;
+
+    data = [];
+
+    // Create array of objects
+    for(const key in json) {
+      const track = {
+        "track": json[key]
+      };
+      data.push(track);
+    }
+  } else {
+    data = await helper.getAllItems(userToken, `${process.env.SPOTIFY_URL}/playlists/${playlistId}/tracks`, 100);
+  }
+
+  return data;
+}
+
+async function readJson(file) {
+  return await fsPromises.readFile(path.join(__dirname, '..', 'demo', file));
 }
 
 module.exports = {

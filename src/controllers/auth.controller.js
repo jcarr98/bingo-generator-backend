@@ -1,11 +1,9 @@
 const authServices = require('../services/auth.service');
 
 async function login(req, res, next) {
-  console.log('Attempting to authenticate user');
 
   try {
     let redirPackage = await authServices.login();
-    console.log(redirPackage);
     res.json({
       status: 200, 
       url: 'https://accounts.spotify.com/authorize', 

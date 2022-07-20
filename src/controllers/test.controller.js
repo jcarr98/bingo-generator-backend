@@ -18,7 +18,27 @@ async function resTest(req, res, next) {
   }
 }
 
+async function playlists(req, res, next) {
+  try {
+    testServices.savePlaylist(req);
+  } catch (err) {
+    console.log(err.message);
+    next(err);
+  }
+}
+
+async function tracks(req, res, next) {
+  try {
+    testServices.saveTracks(req);
+  } catch (err) {
+    console.log(err.message);
+    next(err);
+  }
+}
+
 module.exports = {
   getTest,
-  resTest
+  resTest,
+  playlists,
+  tracks
 }
