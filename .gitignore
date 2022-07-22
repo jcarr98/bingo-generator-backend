@@ -1,3 +1,4 @@
+.gitignore
 node_modules/
 .env
 bingo-generator-backend.code-workspace
