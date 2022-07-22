@@ -1,4 +1,5 @@
 const helper = require('../utils/helper.utils');
+const fetch = require('node-fetch');
 
 async function login() {
   let state = helper.generateRandomString(16);
@@ -8,14 +9,14 @@ async function login() {
     response_type: 'code',
     client_id: process.env.CLIENT_ID,
     scope: 'playlist-read-private',
-    redirect_uri: 'http://localhost:8080/landing',
+    redirect_uri: `${process.env.FRONTEND_URL}/landing`,
     state: state
   }
 
   return JSON.stringify(redirPackage);
 }
 
-async function getUserToken(req, res) {
+async function getaccessToken(req, res) {
   let code = req.query.code;
   let state = req.query.state;
 
@@ -25,7 +26,7 @@ async function getUserToken(req, res) {
     url: 'https://accounts.spotify.com/api/token',
     form: {
       code: code,
-      redirect_uri: 'http://localhost:8080/landing',
+      redirect_uri: `${process.env.FRONTEND_URL}/landing`,
       grant_type: 'authorization_code'
     },
     headers: {
@@ -39,7 +40,19 @@ async function getUserToken(req, res) {
   return item;
 }
 
+async function validateUser(token) {
+  let user = await fetch(`${process.env.SPOTIFY_URL}/me`, {
+    method: 'get',
+    headers: {
+      'Authorization': `Bearer ${token}`
+    }
+  }).catch(err => {console.log(`Spotify error`, err)});
+
+  return user.status === 200;
+}
+
 module.exports = {
   login,
-  getUserToken
+  getaccessToken,
+  validateUser
 };

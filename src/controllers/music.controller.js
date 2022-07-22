@@ -2,7 +2,7 @@ const musicServices = require('../services/music.service');
 
 async function getMe(req, res, next) {
   try {
-    res.json(await musicServices.getMe(req.query.userToken));
+    res.json(await musicServices.getMe(req.query.accessToken));
   } catch (err) {
     console.error(`Error getting user info:`, err.message);
     next(err);
@@ -11,7 +11,7 @@ async function getMe(req, res, next) {
 
 async function getPlaylists(req, res, next) {
   try {
-    res.json(await musicServices.getPlaylists(req.query.userToken));
+    res.json(await musicServices.getPlaylists(req.query.accessToken));
   } catch (err) {
     console.error(`Error getting playlist`, err.message);
     next(err);
@@ -20,9 +20,10 @@ async function getPlaylists(req, res, next) {
 
 async function getTracks(req, res, next) {
   try {
-    res.json(await musicServices.getTracks(req.query.userToken, req.query.playlistId));
+    // res.json(await musicServices.getTracks(req.query.accessToken, req.query.playlistId));
+    res.json(await musicServices.getTracks());
   } catch (err) {
-    console.error(`Error getting playlist tracks`, err.message);
+    console.error(`Error getting playlist tracks`, err);
     next(err);
   }
 }

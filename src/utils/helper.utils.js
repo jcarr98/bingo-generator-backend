@@ -1,7 +1,7 @@
 const fetch = require('node-fetch');
 const request = require('request');
 
-async function getAllItems(userToken, url, limit=20) {
+async function getAllItems(accessToken, url, limit=20) {
   let currentList, fullList = [];
   let offset = 0;
 
@@ -9,7 +9,7 @@ async function getAllItems(userToken, url, limit=20) {
     currentList = await fetch(`${url}?offset=${offset}&limit=${limit}`, {
       method: 'get',
       headers: {
-        'Authorization': `Bearer ${userToken}`
+        'Authorization': `Bearer ${accessToken}`
       }
     }).catch(err => {console.log(err)});
 
