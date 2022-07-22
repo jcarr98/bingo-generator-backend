@@ -20,8 +20,7 @@ async function getPlaylists(req, res, next) {
 
 async function getTracks(req, res, next) {
   try {
-    // res.json(await musicServices.getTracks(req.query.accessToken, req.query.playlistId));
-    res.json(await musicServices.getTracks());
+    res.json(await musicServices.getTracks(req.query.accessToken, req.query.playlistId));
   } catch (err) {
     console.error(`Error getting playlist tracks`, err);
     next(err);
