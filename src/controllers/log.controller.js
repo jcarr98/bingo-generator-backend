@@ -3,7 +3,6 @@ const logServices = require('../services/log.service');
 async function logLogin(req, res, next) {
   try {
     const token = req.query.accessToken;
-    console.log(token);
     res.json(await logServices.log(token, 'Logged in'));
   } catch(err) {
     console.log(err.message);
