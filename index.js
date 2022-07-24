@@ -5,7 +5,8 @@ const cors = require('cors');
 
 const musicRouter = require('./src/routes/music.route');
 const authRouter = require('./src/routes/auth.route');
-const testRouter = require('./src/routes/test.route');
+// const testRouter = require('./src/routes/test.route');
+const logRouter = require('./src/routes/log.route');
 
 // Set up development environment
 if(process.env.NODE_ENV !== 'production') {
@@ -34,7 +35,8 @@ app.get('/', (req, res) => {
 
 app.use('/music', musicRouter);
 app.use('/auth', authRouter);
-app.use('/test', testRouter);
+// app.use('/test', testRouter);
+app.use('/log', logRouter);
 
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);

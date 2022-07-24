@@ -15,7 +15,7 @@ async function login(req, res, next) {
   }
 }
 
-async function getaccessToken(req, res, next) {
+async function getAccessToken(req, res, next) {
   try {
     res.json(await authServices.getaccessToken(req, res));
   } catch (err) {
@@ -26,7 +26,7 @@ async function getaccessToken(req, res, next) {
 
 async function validate(req, res, next) {
   try {
-    let valid = await authServices.validateUser(req.query.accessToken);
+    let valid = await authServices.validateUser(req.query.accessToken, req.query.action);
     
     let obj = valid ? { status: 200 } : { status: 500};
 
@@ -39,6 +39,6 @@ async function validate(req, res, next) {
 
 module.exports = {
   login,
-  getaccessToken,
+  getAccessToken,
   validate
 };
