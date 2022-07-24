@@ -17,7 +17,6 @@ async function log(token, action) {
   }
 
   const json = await user.json();
-  console.log(json);
   const id = json.id;
 
   // Confirm we have an action
