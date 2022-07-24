@@ -1,6 +1,5 @@
 const helper = require('../utils/helper.utils');
 const fetch = require('node-fetch');
-const db = require('./db.service');
 
 async function login() {
   let state = helper.generateRandomString(16);
