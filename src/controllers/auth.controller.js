@@ -10,7 +10,7 @@ async function login(req, res, next) {
       redirectPackage: redirPackage
     });
   } catch(err) {
-    console.log(err.message);
+    console.log(err);
     next(err);
   }
 }
@@ -19,7 +19,7 @@ async function getAccessToken(req, res, next) {
   try {
     res.json(await authServices.getaccessToken(req, res));
   } catch (err) {
-    console.log(err.message);
+    console.log(err);
     next(err);
   }
 }
@@ -32,7 +32,7 @@ async function validate(req, res, next) {
 
     res.json(obj);
   } catch(err) {
-    console.log(err.message);
+    console.log(err);
     next(err);
   }
 }
